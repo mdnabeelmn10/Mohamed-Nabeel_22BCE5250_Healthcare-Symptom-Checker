@@ -1,70 +1,175 @@
-# Getting Started with Create React App
+# 🏥 Healthcare Symptom Checker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application that allows users to input symptoms and receive **educational suggestions** about possible conditions and next steps — powered by **Google Gemini API**.  
 
-## Available Scripts
+> ⚠️ This tool is for **educational purposes only** and is **not a substitute for professional medical advice or diagnosis**.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Symptom Input Form** — Users can describe their symptoms in plain text.  
+- **LLM-powered Reasoning** — The backend queries Gemini to generate probable conditions and safe recommendations.  
+- **Safety First** — Every response includes a clear disclaimer.  
+- **Query Logging (Optional)** — Each request can be stored in a database for analytics or history.  
+- **Responsive UI** — Simple, modern React interface styled with CSS.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧩 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Component | Technology |
+|------------|-------------|
+| **Frontend** | React (Create React App) |
+| **Backend** | Django + Django REST Framework |
+| **LLM Integration** | Google Gemini API |
+| **Database** | SQLite (default) |
+| **Styling** | Plain CSS |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Installation & Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/healthcare-symptom-checker.git
+cd healthcare-symptom-checker
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### 2. Backend Setup (Django)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate     # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create a `.env` file inside the `backend` folder:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Run migrations and start the Django server:
 
-## Learn More
+```bash
+python manage.py migrate
+python manage.py runserver
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Your backend will be live at  
+👉 `http://127.0.0.1:8000/api/symptom-checker/`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+### 3. Frontend Setup (React)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+cd frontend
+npm install
+npm start
+```
 
-### Analyzing the Bundle Size
+Your frontend will run at  
+👉 `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🔗 API Endpoint
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**POST** `/api/symptom-checker/`
 
-### Advanced Configuration
+### Request:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```json
+{
+  "symptom": "I have a sore throat, mild fever, and cough."
+}
+```
 
-### Deployment
+### Response:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```json
+{
+  "condition": "Possible common cold or mild viral infection",
+  "recommendation": "Stay hydrated, rest, and consult a doctor if fever persists beyond 3 days.",
+  "disclaimer": "This is for educational purposes only and should not be considered medical advice."
+}
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🧠 Gemini API Integration
+
+The Django backend sends user symptoms to Gemini with a prompt like:
+
+> “Based on these symptoms, suggest possible conditions and next steps with an educational disclaimer.”
+
+Make sure your `.env` file includes:
+
+```
+GEMINI_API_KEY=your_key_here
+```
+
+---
+
+## 📁 Project Structure
+
+```
+healthcare-symptom-checker/
+│
+├── backend/
+│   ├── manage.py
+│   ├── api/
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── models.py
+│   ├── healthcare_checker/
+│   │   ├── settings.py
+│   │   └── urls.py
+│   └── .env
+│
+├── frontend/
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── components/
+│   │   │   └── SymptomForm.js
+│   │   └── App.css
+│   └── package.json
+│
+└── README.md
+```
+
+---
+
+## 🧪 Example Flow
+
+1. Open `http://localhost:3000`  
+2. Enter your symptoms (e.g., “I have a sore throat and headache.”)  
+3. Click **Submit**  
+4. View probable conditions and safe recommendations (with disclaimer)
+
+---
+
+## 🧷 Safety & Ethics
+
+* The output is **educational** and should **not replace professional consultation**.  
+* All responses are accompanied by a **medical disclaimer**.  
+* No personal health data is shared or stored unless you explicitly enable logging.
+
+---
+
+## 🧑‍💻 Author
+
+**Mohamed Nabeel**  
+💻 B.Tech CSE Core @ VIT Chennai | B.Sc Data Science @ IIT Madras  
+📊 Passionate about Data Science & AI-based applications
+
+---
+
+## 📜 License
+
+This project is released under the **MIT License** — feel free to modify and use it responsibly.
