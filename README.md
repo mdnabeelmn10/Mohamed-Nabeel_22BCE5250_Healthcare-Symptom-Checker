@@ -116,35 +116,6 @@ GEMINI_API_KEY=your_key_here
 
 ---
 
-## 📁 Project Structure
-
-```
-healthcare-symptom-checker/
-│
-├── backend/
-│   ├── manage.py
-│   ├── api/
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── models.py
-│   ├── healthcare_checker/
-│   │   ├── settings.py
-│   │   └── urls.py
-│   └── .env
-│
-├── frontend/
-│   ├── src/
-│   │   ├── App.js
-│   │   ├── components/
-│   │   │   └── SymptomForm.js
-│   │   └── App.css
-│   └── package.json
-│
-└── README.md
-```
-
----
-
 ## 🧪 Example Flow
 
 1. Open `http://localhost:3000`  
